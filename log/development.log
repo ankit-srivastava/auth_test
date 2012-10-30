@@ -1501,3 +1501,383 @@ Processing by SessionsController#create as HTML
   [1m[36mUser Load (32.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
   Rendered text template (0.0ms)
 Completed 200 OK in 109ms (Views: 0.8ms | ActiveRecord: 33.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at Tue Oct 30 10:55:39 +0530 2012
+Connecting to database specified by database.yml
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 107ms (Views: 106.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at Tue Oct 30 10:55:40 +0530 2012
+Served asset /sessions.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at Tue Oct 30 10:55:40 +0530 2012
+Served asset /application.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at Tue Oct 30 10:55:40 +0530 2012
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at Tue Oct 30 10:55:40 +0530 2012
+Served asset /jquery.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at Tue Oct 30 10:55:40 +0530 2012
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at Tue Oct 30 10:55:40 +0530 2012
+Served asset /application.js - 304 Not Modified (7ms)
+
+
+Started GET "/auth/facebook" for 127.0.0.1 at Tue Oct 30 10:55:44 +0530 2012
+Connecting to database specified by database.yml
+  [1m[36m (31.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (5.6ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (101.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateUsers (20121029102648)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (106.1ms)[0m  CREATE TABLE "users" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121029102648')[0m
+  [1m[35m (16.1ms)[0m  COMMIT
+Migrating to CreateAuthorizations (20121029102716)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (85.7ms)[0m  CREATE TABLE "authorizations" ("id" serial primary key, "provider" character varying(255), "uid" character varying(255), "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121029102716')[0m
+  [1m[35m (17.4ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35mPK and serial sequence (8.1ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"authorizations"'::regclass
+
+  [1m[36m (4.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'authorizations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (3.9ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"users"'::regclass
+
+  [1m[36m (2.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+
+
+Started GET "/login" for 127.0.0.1 at Tue Oct 30 11:07:52 +0530 2012
+Connecting to database specified by database.yml
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 28.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at Tue Oct 30 11:07:52 +0530 2012
+Served asset /application.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at Tue Oct 30 11:07:53 +0530 2012
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at Tue Oct 30 11:07:53 +0530 2012
+Served asset /jquery.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at Tue Oct 30 11:07:53 +0530 2012
+Served asset /sessions.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at Tue Oct 30 11:07:53 +0530 2012
+Served asset /sessions.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at Tue Oct 30 11:07:53 +0530 2012
+Served asset /application.js - 304 Not Modified (13ms)
+
+
+Started GET "/auth/facebook" for 127.0.0.1 at Tue Oct 30 11:07:54 +0530 2012
+
+
+Started GET "/auth/facebook/callback?state=11e5dd234517187be1d7b3b793a84cd8d2834ad0aed62c19&code=AQAsF7MN9nhcZ_xyX29fyql7Wr9BXe1_9ZpBunba56tGUkxjsYk79B_JifyUGWYl7hKfklF86oyxfH9k-o54SClbJRo6hhRoOkSyGURD-dQTXpR_neeRquVy9YpCal36g4Q29vJPgYGZgz896gyV1wnZCvn1Rcn0aiPlRMVTZtXuUZPmpJZdTxraqGeE5fxRiDZYWPuAfdsbO5RSyKSaQTwU" for 127.0.0.1 at Tue Oct 30 11:07:56 +0530 2012
+Processing by SessionsController#create as HTML
+  Parameters: {"provider"=>"facebook", "state"=>"11e5dd234517187be1d7b3b793a84cd8d2834ad0aed62c19", "code"=>"AQAsF7MN9nhcZ_xyX29fyql7Wr9BXe1_9ZpBunba56tGUkxjsYk79B_JifyUGWYl7hKfklF86oyxfH9k-o54SClbJRo6hhRoOkSyGURD-dQTXpR_neeRquVy9YpCal36g4Q29vJPgYGZgz896gyV1wnZCvn1Rcn0aiPlRMVTZtXuUZPmpJZdTxraqGeE5fxRiDZYWPuAfdsbO5RSyKSaQTwU"}
+Completed 500 Internal Server Error in 74ms
+
+NoMethodError (undefined method `find_or_create' for #<Class:0x7fe7100ddf28>):
+  app/controllers/sessions_controller.rb:13:in `create'
+
+
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.0ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.2ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (22.4ms)
+
+
+Started GET "/login" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Connecting to database specified by database.yml
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 28.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Served asset /sessions.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Served asset /application.css - 304 Not Modified (7ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Served asset /application.js - 304 Not Modified (10ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at Tue Oct 30 11:44:46 +0530 2012
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/auth/facebook" for 127.0.0.1 at Tue Oct 30 11:44:48 +0530 2012
+
+
+Started GET "/auth/facebook/callback?state=ed93998f70056f31350068e3079b687f20ff7a3fc69831ad&code=AQCM7CFY5InpscvByN8US3kLp0d7nzSQKVIURM4MKu9jhc6BtRz5mUaBs29qL02GYjAKtucR5-APumL7-MqjcBjqPSsrIMHaU29tJidYeGk36ZDQ7pmar6s4BTFIWZJpMaxFSmSBjasxWwplVAWk-Lhd2PMJWxWumLFYekK6MgnrL-25Lf1Z7KrYq9pssyr9SujmX9Cx6zdF-ldWqL1wR3OO" for 127.0.0.1 at Tue Oct 30 11:44:49 +0530 2012
+Processing by SessionsController#create as HTML
+  Parameters: {"code"=>"AQCM7CFY5InpscvByN8US3kLp0d7nzSQKVIURM4MKu9jhc6BtRz5mUaBs29qL02GYjAKtucR5-APumL7-MqjcBjqPSsrIMHaU29tJidYeGk36ZDQ7pmar6s4BTFIWZJpMaxFSmSBjasxWwplVAWk-Lhd2PMJWxWumLFYekK6MgnrL-25Lf1Z7KrYq9pssyr9SujmX9Cx6zdF-ldWqL1wR3OO", "state"=>"ed93998f70056f31350068e3079b687f20ff7a3fc69831ad", "provider"=>"facebook"}
+  [1m[36mAuthorization Load (1.6ms)[0m  [1mSELECT "authorizations".* FROM "authorizations" WHERE "authorizations"."uid" = '648175365' AND "authorizations"."provider" = 'facebook' LIMIT 1[0m
+Completed 500 Internal Server Error in 103ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/authorization.rb:8:in `find_or_create'
+  app/controllers/sessions_controller.rb:13:in `create'
+
+
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (8.0ms)
+
+
+Started GET "/auth/facebook/callback?state=ed93998f70056f31350068e3079b687f20ff7a3fc69831ad&code=AQCM7CFY5InpscvByN8US3kLp0d7nzSQKVIURM4MKu9jhc6BtRz5mUaBs29qL02GYjAKtucR5-APumL7-MqjcBjqPSsrIMHaU29tJidYeGk36ZDQ7pmar6s4BTFIWZJpMaxFSmSBjasxWwplVAWk-Lhd2PMJWxWumLFYekK6MgnrL-25Lf1Z7KrYq9pssyr9SujmX9Cx6zdF-ldWqL1wR3OO" for 127.0.0.1 at Tue Oct 30 11:45:16 +0530 2012
+Processing by SessionsController#create as HTML
+  Parameters: {"code"=>"AQCM7CFY5InpscvByN8US3kLp0d7nzSQKVIURM4MKu9jhc6BtRz5mUaBs29qL02GYjAKtucR5-APumL7-MqjcBjqPSsrIMHaU29tJidYeGk36ZDQ7pmar6s4BTFIWZJpMaxFSmSBjasxWwplVAWk-Lhd2PMJWxWumLFYekK6MgnrL-25Lf1Z7KrYq9pssyr9SujmX9Cx6zdF-ldWqL1wR3OO", "state"=>"ed93998f70056f31350068e3079b687f20ff7a3fc69831ad", "provider"=>"facebook"}
+  [1m[35mAuthorization Load (0.5ms)[0m  SELECT "authorizations".* FROM "authorizations" WHERE "authorizations"."uid" = '648175365' AND "authorizations"."provider" = 'facebook' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (92.1ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Tue, 30 Oct 2012 06:15:19 UTC +00:00], ["email", "ankit_149@hotmail.com"], ["name", "Ankit Srivastava"], ["updated_at", Tue, 30 Oct 2012 06:15:19 UTC +00:00]]
+  [1m[36m (15.4ms)[0m  [1mCOMMIT[0m
+Completed 500 Internal Server Error in 144ms
+
+ActiveModel::MassAssignmentSecurity::Error (Can't mass-assign protected attributes: user):
+  app/models/authorization.rb:9:in `find_or_create'
+  app/controllers/sessions_controller.rb:13:in `create'
+
+
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (7.8ms)
+
+
+Started GET "/login" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Connecting to database specified by database.yml
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 28.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Served asset /application.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Served asset /sessions.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at Tue Oct 30 11:45:27 +0530 2012
+Served asset /application.js - 304 Not Modified (8ms)
+
+
+Started GET "/auth/facebook" for 127.0.0.1 at Tue Oct 30 11:45:30 +0530 2012
+
+
+Started GET "/auth/facebook/callback?state=a5504c9aa42792a1b5f8b9d31adc7ee31eef36a5e6968117&code=AQA4szR1Jw-1RVRuJpi2OSv0TaZQqIPsDcmQA9vxeKIVIXCPnpPJst8VhRFUWOiXAaMHFAk6bNSXmxkRfJAXZvkU39U7_jlXiYaSK3zSRVEh9CNDFZbWZTecMdmhYSkY-akEw02gSeMiY8QOs_cUryzc_j8X5pQy9tsd_XGS-LTZCKSbIpYHwU4UmzMJc5XEmURRxzp4hC0iiSqTHYPihr8m" for 127.0.0.1 at Tue Oct 30 11:45:30 +0530 2012
+Processing by SessionsController#create as HTML
+  Parameters: {"state"=>"a5504c9aa42792a1b5f8b9d31adc7ee31eef36a5e6968117", "code"=>"AQA4szR1Jw-1RVRuJpi2OSv0TaZQqIPsDcmQA9vxeKIVIXCPnpPJst8VhRFUWOiXAaMHFAk6bNSXmxkRfJAXZvkU39U7_jlXiYaSK3zSRVEh9CNDFZbWZTecMdmhYSkY-akEw02gSeMiY8QOs_cUryzc_j8X5pQy9tsd_XGS-LTZCKSbIpYHwU4UmzMJc5XEmURRxzp4hC0iiSqTHYPihr8m", "provider"=>"facebook"}
+  [1m[36mAuthorization Load (0.9ms)[0m  [1mSELECT "authorizations".* FROM "authorizations" WHERE "authorizations"."provider" = 'facebook' AND "authorizations"."uid" = '648175365' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (5.1ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 30 Oct 2012 06:15:33 UTC +00:00], ["email", "ankit_149@hotmail.com"], ["name", "Ankit Srivastava"], ["updated_at", Tue, 30 Oct 2012 06:15:33 UTC +00:00]]
+  [1m[35m (13.8ms)[0m  COMMIT
+Completed 500 Internal Server Error in 73ms
+
+ActiveModel::MassAssignmentSecurity::Error (Can't mass-assign protected attributes: user):
+  app/models/authorization.rb:9:in `find_or_create'
+  app/controllers/sessions_controller.rb:13:in `create'
+
+
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (60.7ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (67.6ms)
+
+
+Started GET "/login" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Connecting to database specified by database.yml
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 30ms (Views: 29.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Served asset /jquery.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Served asset /application.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Served asset /sessions.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at Tue Oct 30 11:47:32 +0530 2012
+Served asset /application.js - 304 Not Modified (8ms)
+
+
+Started GET "/auth/facebook" for 127.0.0.1 at Tue Oct 30 11:47:33 +0530 2012
+
+
+Started GET "/auth/facebook/callback?state=42554af0a84a2d00bb77ae3d0dacfbc47ed3fc334c602b1d&code=AQBxQjC4JM2n3sC4W77ViwD68y9K5ZhDaOnWYOEAGyY4wgKwDQPHT6Xq6inIxJzxc9gddwIM1YsfcNyfY0v7VIRN_XhNmSwqwX0KvpOD3UzpydF6SzhLPa9IkTMIuYWxt_DFturj3wZ8m5BhyLveBUp7GvRUHjFQ72BHkwTGmbwD4vxEKZBj7g6Fwe9B4USX-gAi8k-KvaBA9MyVOFVgUCQi" for 127.0.0.1 at Tue Oct 30 11:47:35 +0530 2012
+Processing by SessionsController#create as HTML
+  Parameters: {"code"=>"AQBxQjC4JM2n3sC4W77ViwD68y9K5ZhDaOnWYOEAGyY4wgKwDQPHT6Xq6inIxJzxc9gddwIM1YsfcNyfY0v7VIRN_XhNmSwqwX0KvpOD3UzpydF6SzhLPa9IkTMIuYWxt_DFturj3wZ8m5BhyLveBUp7GvRUHjFQ72BHkwTGmbwD4vxEKZBj7g6Fwe9B4USX-gAi8k-KvaBA9MyVOFVgUCQi", "provider"=>"facebook", "state"=>"42554af0a84a2d00bb77ae3d0dacfbc47ed3fc334c602b1d"}
+  [1m[36mAuthorization Load (1.7ms)[0m  [1mSELECT "authorizations".* FROM "authorizations" WHERE "authorizations"."uid" = '648175365' AND "authorizations"."provider" = 'facebook' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (8.2ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 30 Oct 2012 06:17:38 UTC +00:00], ["email", "ankit_149@hotmail.com"], ["name", "Ankit Srivastava"], ["updated_at", Tue, 30 Oct 2012 06:17:38 UTC +00:00]]
+  [1m[35m (74.3ms)[0m  COMMIT
+Completed 500 Internal Server Error in 151ms
+
+ActiveModel::MassAssignmentSecurity::Error (Can't mass-assign protected attributes: user):
+  app/models/authorization.rb:12:in `find_or_create'
+  app/controllers/sessions_controller.rb:13:in `create'
+
+
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.6ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /var/lib/gems/1.8/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (64.4ms)
+
+
+Started GET "/login" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Connecting to database specified by database.yml
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 85ms (Views: 84.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Served asset /sessions.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Served asset /jquery.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Served asset /application.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Served asset /application.js - 304 Not Modified (10ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at Tue Oct 30 12:17:40 +0530 2012
+Served asset /jquery_ujs.js - 304 Not Modified (4ms)
+
+
+Started GET "/auth/facebook" for 127.0.0.1 at Tue Oct 30 12:17:42 +0530 2012
+
+
+Started GET "/auth/facebook/callback?state=01d9d7149377f354f75b4aff460279b30179a33d7a5d7fca&code=AQBq4fPlHMW1fwiK1G9N4j_uIlWAwN0nI7TrjD78ly_Q6oe8paowt2fmsRiLcooxY3UbFaVylGIvSksJ4E22ZoyG_OWfFUSl0j2q1p01EpnIqJfNn0o-hLV_sIyt7SMhSJEfLHFbPM5ArrIlzYXA5J4W7aRMkUVhI5KCrI31Oj7XXUt5CN6TvN_L8QkqVZT8ywPsw6nuo3ppf4GbesOn28Gf" for 127.0.0.1 at Tue Oct 30 12:17:44 +0530 2012
+Processing by SessionsController#create as HTML
+  Parameters: {"code"=>"AQBq4fPlHMW1fwiK1G9N4j_uIlWAwN0nI7TrjD78ly_Q6oe8paowt2fmsRiLcooxY3UbFaVylGIvSksJ4E22ZoyG_OWfFUSl0j2q1p01EpnIqJfNn0o-hLV_sIyt7SMhSJEfLHFbPM5ArrIlzYXA5J4W7aRMkUVhI5KCrI31Oj7XXUt5CN6TvN_L8QkqVZT8ywPsw6nuo3ppf4GbesOn28Gf", "provider"=>"facebook", "state"=>"01d9d7149377f354f75b4aff460279b30179a33d7a5d7fca"}
+  [1m[36mAuthorization Load (1.6ms)[0m  [1mSELECT "authorizations".* FROM "authorizations" WHERE "authorizations"."uid" = '648175365' AND "authorizations"."provider" = 'facebook' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (8.3ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 30 Oct 2012 06:47:47 UTC +00:00], ["email", "ankit_149@hotmail.com"], ["name", "Ankit Srivastava"], ["updated_at", Tue, 30 Oct 2012 06:47:47 UTC +00:00]]
+  [1m[35m (150.5ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (18.0ms)[0m  INSERT INTO "authorizations" ("created_at", "provider", "uid", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Tue, 30 Oct 2012 06:47:47 UTC +00:00], ["provider", "facebook"], ["uid", "648175365"], ["updated_at", Tue, 30 Oct 2012 06:47:47 UTC +00:00], ["user_id", 4]]
+  [1m[36m (17.3ms)[0m  [1mCOMMIT[0m
+  Rendered text template (0.0ms)
+Completed 200 OK in 367ms (Views: 2.9ms | ActiveRecord: 213.6ms)
